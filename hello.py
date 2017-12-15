@@ -68,7 +68,8 @@ for x in L:
     print(x)
 '''
 
-n = 0qqqqqqqqqqqqqqqqqqqq
+'''
+n = 0
 while n <= 100:
     n = n + 1
     if n > 10:
@@ -76,12 +77,29 @@ while n <= 100:
     if n % 2 == 0:
         continue
     print(n)
-    
-	
+'''
 
+'''
+d = {'mm':90, 'nn':80, 'cc': 70}
+d['mm'] = 80
+d['mm'] = 77
+#print(d['mmm'])
+#print('mm' in d)
+#print(d.get('mmm'), '无')	
+d.pop('cc')
+print(d)
+'''
 
+'''
+s = set([1,5,32,3,4,2,1,22])
+s.remove(1)
+print(s)
+'''
 
-
+s1 = set([1,2,3])
+s2 = set([4,3,2])
+#print(s1 & s2)
+print(s1 | s2)
 
 
 
