@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import math
 
 # https://www.liaoxuefeng.com/
 
@@ -96,22 +97,68 @@ s.remove(1)
 print(s)
 '''
 
+'''
 s1 = set([1,2,3])
 s2 = set([4,3,2])
 #print(s1 & s2)
 print(s1 | s2)
+'''
 
+'''
+print(abs(100))
 
+n1 = 255
+n2 = 1000
+print(hex(n1))
+print(hex(n2))
+'''
 
+#print(math.sqrt(2))
 
+'''
+def quadratic(a,b,c):
+    for n in (a,b,c):
+        if not isinstance(n, (int,float)):
+	        raise TypeError('请输入数字')
+    if a == 0 and b**2-4*a*c != 0:
+        x = -c/b
+        return x
+    elif a != 0 and b**2-4*a*c > 0:
+        x1 = (-b+math.sqrt(b**2-4*a*c))/(2*a)
+        x2 = (-b-math.sqrt(b**2-4*a*c))/(2*a)
+        return x1,x2
+    elif a != 0 and b**2-4*a*c == 0:
+	    x = -b/(2*a)
+	    return x
+    else:
+        return '无解'
 
+print('quadratic(2,3,1) =', quadratic(2,3,1))
+print('quadratic(1,3,-4) =', quadratic(1,3,-4))
 
+'''
 
+'''
+def power(x,n=2):
+    s = 1
+    while n > 0:
+        n = n - 1
+        s = s * x
+        print('s=',s)
+    return s
 
+power(6)
+power(5,4)
+'''
 
+def calc(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n*n
+    return sum
 
+#print(calc(1,2,3))
 
-
-
-
+nums = [1,2,3]
+print(calc(*nums))
 
