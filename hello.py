@@ -151,6 +151,7 @@ power(6)
 power(5,4)
 '''
 
+'''
 def calc(*numbers):
     sum = 0
     for n in numbers:
@@ -161,4 +162,91 @@ def calc(*numbers):
 
 nums = [1,2,3]
 print(calc(*nums))
+'''
+
+'''
+def person(name, age, **kw):
+  if 'city' in kw:
+    print('city')
+  if 'job' in kw:
+    print('job')
+  print('name:', name, 'age:', age, 'other', kw)
+
+extra = {'city': 'Beijing', 'job': 'Engineer'}
+person('Jack', 24, **extra)
+'''
+
+'''
+def person(name, age, *, city='Beijing', job='Engineer'):
+  print(name, age, city, job)
+
+#person('Jack', 24, 'Beijing', 'Engineer')   false
+person('Jack', 24, city = 'Shandong', job = 'Programmer')
+
+#person('Jack', 24)
+'''
+
+def product(*args):
+    m = 1
+    for n in args:
+        m = n * m
+    return m
+
+'''	
+if product(5) != 5:
+    print('1测试失败!')
+elif product(5, 6) != 30:
+    print('2测试失败!')
+elif product(5, 6, 7) != 210:
+    print('3测试失败!')
+elif product(5, 6, 7, 9) != 1890:
+    print('4测试失败!')
+else:
+    try:
+        product()
+        print('5测试成功!')
+    except TypeError:
+        print('测试失败!')	
+
+'''
+
+'''
+def fact(n):
+    return fact_iter(n, 1)
+
+def fact_iter(num, product):
+    print('num=',num,'product=',product)
+    if num == 1:
+        return product
+    return fact_iter(num - 1, num * product)
+fact(5)
+
+'''
+
+def print_hanoi(n,A,B,C):
+ if(n == 1):
+   print(A,'-->',C)
+ else:
+   print_hanoi(n-1,A,C,B)
+   print_hanoi(1,A,B,C)
+   print_hanoi(n-1,B,A,C)
+
+print_hanoi(3, 'A', 'B', 'C')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
