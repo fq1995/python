@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import math
 import os
+from collections import Iterable, Iterator
+from functools import reduce
 
 # https://www.liaoxuefeng.com/
 
@@ -319,19 +321,101 @@ while True:
 	
 for x in fib(6):
 	print(x)	
-'''
+
 
 def triangles():
     L=[1]
     while True:
         yield L
+#        print('前  ',L)
         L=[L[i]+L[i+1] for i in range(len(L)-1)]
+#        print('后  ',L)
         L.insert(0,1)
         L.append(1)
 
+L = triangles();
+for x in range(10):
+#    next(L)
+    print(next(L))
+
+
+it = iter([1,2,3,4,5])
+while True:
+    try:
+        x = next(it)
+        print(x)
+    except StopIteration:
+        break;
+
+
+def g():
+    yield 1
+    yield 2
+    yield 3
+
+print('Iterable? [1, 2, 3]:', isinstance([1, 2, 3], Iterable))
+print('Iterable? \'abc\':', isinstance('abc', Iterable))
+print('Iterable? 123:', isinstance(123, Iterable))
+print('Iterable? g():', isinstance(g(), Iterable))
+
+print('Iterator? [1, 2, 3]:', isinstance([1, 2, 3], Iterator))
+print('Iterator? iter([1, 2, 3]):', isinstance(iter([1, 2, 3]), Iterator))
+print('Iterator? \'abc\':', isinstance('abc', Iterator))
+print('Iterator? 123:', isinstance(123, Iterator))
+print('Iterator? g():', isinstance(g(), Iterator))
 
 
 
+
+def fn(x,y):
+    return x*10 + y
+
+#print(reduce(fn, [0.1,2,3]))
+
+def char2num(s):
+    digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+    return digits[s]
+
+print(reduce(fn, map(char2num, '21332')))	
+
+
+
+digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+
+def char2num(s):
+    return digits[s]
+
+def str2int(s):
+    return reduce(lambda x,y: x*10+y, map(char2num,s))
+
+'''
+DIGITS = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+def str2float(str):
+    index = str.find(".")
+    length = 1
+    if index >= 0:
+        length = len(str[index + 1:])
+        length = math.pow(10, length)
+    str = str.replace('.','');
+    return reduce(lambda x, y: x * 10 + y, map(lambda x: DIGITS[x], str)) / length
+
+	
+print('str2float(\'123456\') =', str2float('123456'))	
+	
+print('str2float(\'123.456\') =', str2float('123.456'))
+print(str2float('123.456'))
+if abs(str2float('123.456') - 123.456) < 0.00001:
+    print('测试成功!')
+else:
+    print('测试失败!')
+
+
+
+
+
+
+
+	
 
 
 
