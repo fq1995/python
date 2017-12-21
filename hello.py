@@ -388,7 +388,8 @@ def char2num(s):
 def str2int(s):
     return reduce(lambda x,y: x*10+y, map(char2num,s))
 
-'''
+
+
 DIGITS = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
 def str2float(str):
     index = str.find(".")
@@ -399,35 +400,132 @@ def str2float(str):
     str = str.replace('.','');
     return reduce(lambda x, y: x * 10 + y, map(lambda x: DIGITS[x], str)) / length
 
-	
-print('str2float(\'123456\') =', str2float('123456'))	
-	
-print('str2float(\'123.456\') =', str2float('123.456'))
-print(str2float('123.456'))
-if abs(str2float('123.456') - 123.456) < 0.00001:
-    print('测试成功!')
-else:
-    print('测试失败!')
+#print('str2float(\'123456\') =', str2float('123456'))		
+#print('str2float(\'123.456\') =', str2float('123.456'))
+s = input("请输入数字：")
+print(str2float(s))
+print(float(s) == str2float(s))
+#if abs(str2float('123.456') - 123.456) < 0.00001:
+#    print('测试成功!')
+#else:
+#    print('测试失败!')
 
 
 
+#### filter
+# Python strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
+def not_empty(s):
+    return s and s.strip()
+
+L = list(filter(not_empty, ['A', '', 'B', ' ', None, 'C']))
+print(L)
+
+#用filter求素数
+def _odd_iter():
+    n = 1
+    while True:
+        n = n + 2
+        yield n
+def _not_divisible(n):
+    return lambda x: x % n > 0
+def primes():
+    yield 2
+    it = _odd_iter()
+    while True:
+        n = next(it)
+        yield n
+        it = filter(_not_divisible(n), it)
+
+for n in primes():
+    if n < 1000:
+        print(n)
+    else:
+        break
+
+#回数是指从左向右读和从右向左读都是一样的数，例如12321，909。请利用filter()筛选出回数：
+def is_palindrome(n):
+    s = str(n)
+    return s == s[::-1]
+output = filter(is_palindrome, range(1,100))
+print(list(output))
 
 
+#### sorted
+s = sorted([36, 5, -12, 9, -21], key=abs)
+print(s)
+
+s = sorted(['bob', 'about', 'Zoo', 'Credit'], key = str.lower, reverse=True)
+print(s)
+
+L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+def by_name(t):
+    return str.lower(t[0])
+def by_score(t):
+    return t[-1]
+L2 = sorted(L, key=by_name)
+L3 = sorted(L, key=by_score)
+L4 = sorted(L, key=by_score, reverse=True)
+
+print(L2)
+print(L3)
+print(L4)
+
+#### 返回函数
+def calc_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+
+f = calc_sum(1,3,4,6)
+print(f())
 
 
-	
+def count():
+    def f(j):
+        def g():
+            return j*j
+        return g
+    fs = []
+    for i in range(1,4):
+        fs.append(f(i))
+    return fs
 
 
+f1, f2, f3 = count()
+print(f1())
+print(f2())
+print(f3())
 
 
+#利用闭包返回一个计数器函数，每次调用它返回递增整数
+def createCounter():
+    n = [0]
+    def counter():
+        n[0] = n[0] + 1
+        return n[0]
+    return counter
+
+#使用 nonlocal 修改外层变量
+def createCounter():
+    x = 0
+    def inner():
+        nonlocal x
+        x = x + 1
+        return x
+    return inner
+counterA = createCounter()
+print(counterA(), counterA(), counterA(), counterA(), counterA())
 
 
+#### 匿名函数
+f = lambda x: x*x
+print(f(4))
 
+L = list(filter(lambda x: x % 2 == 1, range(1, 20)))
+print(L)
 
-
-
-
-
-
-
+'''
 
