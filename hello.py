@@ -4,7 +4,7 @@ import math
 import os
 from collections import Iterable, Iterator
 from functools import reduce
-
+import time,functools
 # https://www.liaoxuefeng.com/
 
 # name = input("please enter your name: ")
@@ -527,5 +527,59 @@ print(f(4))
 L = list(filter(lambda x: x % 2 == 1, range(1, 20)))
 print(L)
 
+
+#### 装饰器
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper()
+
+@log
+def now():
+    print('2015-2-3')
+
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            print('%s %s(): ' %(text, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator
+
+@log('excute')
+def now():
+    print('2015-2-3')
+
+now()
+
+
+# 设计一个decorator，它可作用于任何函数上，并打印该函数的执行时间：
+def metric(fn):
+    def wrapper(*args, **kw):
+        beg = time.time()*1000
+        result = fn(*args, **kw)
+        end = time.time()*1000
+        print('%s excuted in %s ms' % (fn.__name__,end - beg))
+        return result
+    return wrapper
+
+@metric
+def fast(x, y):
+    time.sleep(0.0012)
+    return x + y
+
+f = fast(11, 22)
+print(f)
+
+@metric
+def slow(x, y, z):
+    time.sleep(0.1234)
+    return x * y * z
+
+s = slow(11, 22, 33)
+print(s)
 '''
 
